@@ -34,8 +34,8 @@ public class Player extends Entity {
     }
     public void setDefaultValues() {
 
-        worldX = gp.tileSize * 15;
-        worldY = gp.tileSize * 15;
+        worldX = gp.tileSize * 16;
+        worldY = gp.tileSize * 16;
         speed = 3;
         direction = "down";
     }
@@ -97,7 +97,7 @@ public class Player extends Entity {
                 direction = "left";
                 worldX -= speed;
             }
-            else if (keyH.rightPressed) {
+            else {
                 direction = "right";
                 worldX += speed;
             }
