@@ -31,12 +31,14 @@ public class Player extends Entity {
         screenX = gp.screenWidth/2 -(gp.tileSize/2);
         screenY = gp.screenHeight/2 -(gp.tileSize/2);
 
+        solidArea = new Rectangle(12, 18, 30,18);
+
     }
     public void setDefaultValues() {
 
         worldX = gp.tileSize * 16;
         worldY = gp.tileSize * 16;
-        speed = 3;
+        speed = 6;
         direction = "down";
     }
     public void getPlayerImage() {
@@ -64,7 +66,7 @@ public class Player extends Entity {
 
         if (keyH.upPressed || keyH.downPressed || keyH.rightPressed || keyH.leftPressed) {
             isStationary = false;
-            if (keyH.rightPressed && keyH.upPressed) {
+            /*if (keyH.rightPressed && keyH.upPressed) {
                 direction = "right";
                 worldX += speed - 1;
                 worldY -= speed - 1;
@@ -85,21 +87,18 @@ public class Player extends Entity {
                 worldX -= speed - 1;
                 worldY += speed - 1;
             }
-            else if (keyH.upPressed) {
+            */
+           if (keyH.upPressed) {
                 direction = "up";
-                worldY -= speed;
             }
             else if (keyH.downPressed) {
                 direction = "down";
-                worldY += speed;
             }
             else if (keyH.leftPressed) {
                 direction = "left";
-                worldX -= speed;
             }
             else {
                 direction = "right";
-                worldX += speed;
             }
             spriteCounter++;
             if(spriteCounter > 7) {
@@ -110,6 +109,18 @@ public class Player extends Entity {
                     spriteNum = 1;
                 }
                 spriteCounter = 0;
+            }
+            // Collision checker
+            collisionOn = false;
+            gp.collisionChecker.checkTile(this);
+
+            if (!collisionOn) {
+                switch (direction) {
+                    case "up": worldY -= speed; break;
+                    case "down": worldY += speed; break;
+                    case "left": worldX -= speed; break;
+                    case "right": worldX += speed; break;
+                }
             }
         } else {
             isStationary = true;

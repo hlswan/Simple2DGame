@@ -2,7 +2,6 @@ package tile;
 
 import main.GamePanel;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,20 +10,18 @@ import java.io.InputStreamReader;
 
 public class TileManager {
     GamePanel gp;
-    public String mapTile[][];
+    public Tile tile[][];
 
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
 
-        mapTile = new String[gp.maxWorldCol][gp.maxWorldRow];
-
+        tile = new Tile[gp.maxWorldCol][gp.maxWorldRow];
 
         loadMap();
     }
 
     public void loadMap() {
-
         try {
             InputStream is = getClass().getResourceAsStream("/maps/map.txt");
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
@@ -37,7 +34,7 @@ public class TileManager {
 
                 String[] strs = line.split(" ");
                 while (col < gp.maxWorldCol) {
-                    mapTile[col][row] = strs[col];
+                    tile[col][row] = Tile.convertTileFromStr(strs[col]);
                     col++;
                 }
                 col = 0;
@@ -56,22 +53,7 @@ public class TileManager {
 
         while(worldRow < gp.maxWorldRow) {
             while (worldCol < gp.maxWorldCol) {
-                String tileType = mapTile[worldCol][worldRow];
-                Tile tile;
-                switch (tileType) {
-                    case "wa":
-                        tile = Tile.WATER;
-                        break;
-                    case "gr":
-                        tile = Tile.GRASS;
-                        break;
-                    case "fn":
-                        tile = Tile.FENCE;
-
-                        break;
-                    default:
-                        throw new IllegalStateException("Unexpected value: " + tileType);
-                }
+                Tile tile = this.tile[worldCol][worldRow];
                 int worldX = worldCol * gp.tileSize;
                 int worldY = worldRow * gp.tileSize;
 

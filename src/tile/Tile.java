@@ -32,7 +32,25 @@ public class Tile {
     public boolean isSwimable() { return swimable;}
 
     public static Tile GRASS = new Tile(true, true, false, "/tiles/grass/grass_tile_blank.png");
+    public static Tile DETAILED_GRASS_ONE = new Tile(true, true, false, "/tiles/grass/grass_tile_blank.png");
     public static Tile WATER = new Tile(true, false, true, "/tiles/water/water_tile_blank.png");
-    public static Tile FENCE = new Tile(false, false, false, "/tiles/water/water_tile_blank.png");
+    public static Tile FENCE = new Tile(false, false, false, "/tiles/fence/basic_fence.png");
+    public static Tile convertTileFromStr(String tileType) {
+        Tile tile;
+        switch (tileType) {
+            case "wa":
+                tile = Tile.WATER;
+                break;
+            case "gr":
+                tile = Tile.GRASS;
+                break;
+            case "fe":
+                tile = Tile.FENCE;
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + tileType);
+        }
+        return tile;
+    }
 
 }
