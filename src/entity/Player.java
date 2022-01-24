@@ -66,7 +66,7 @@ public class Player extends Entity {
 
         if (keyH.upPressed || keyH.downPressed || keyH.rightPressed || keyH.leftPressed) {
             isStationary = false;
-            /*if (keyH.rightPressed && keyH.upPressed) {
+            if (keyH.rightPressed && keyH.upPressed) {
                 direction = "right";
                 worldX += speed - 1;
                 worldY -= speed - 1;
@@ -87,7 +87,6 @@ public class Player extends Entity {
                 worldX -= speed - 1;
                 worldY += speed - 1;
             }
-            */
            if (keyH.upPressed) {
                 direction = "up";
             }
