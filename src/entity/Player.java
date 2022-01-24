@@ -135,6 +135,50 @@ public class Player extends Entity {
         BufferedImage image = null;
 
         switch (direction) {
+            case "right-up":
+                if (isStationary) {
+                    image = upStationary;
+                }
+                else if (spriteNum == 1) {
+                    image = right1;
+                }
+                else {
+                    image = right2;
+                }
+                break;
+            case "left-up":
+                if (isStationary) {
+                    image = upStationary;
+                }
+                else if (spriteNum == 1) {
+                    image = left1;
+                }
+                else {
+                    image = left2;
+                }
+                break;
+            case "right-down":
+                if (isStationary) {
+                    image = downStationary;
+                }
+                else if (spriteNum == 1) {
+                    image = right1;
+                }
+                else {
+                    image = right2;
+                }
+                break;
+            case "down-left":
+                if (isStationary) {
+                    image = downStationary;
+                }
+                else if (spriteNum == 1) {
+                    image = left1;
+                }
+                else {
+                    image = left2;
+                }
+                break;
             case "up":
                 if (isStationary) {
                     image = upStationary;
