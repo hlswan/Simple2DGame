@@ -50,8 +50,8 @@ public class CollisionChecker {
                 break;
             case "right":
                 entityRightCol = (entityRightWorldX - entity.speed)/gp.tileSize;
-                tile1 = gp.tileM.tile[entityLeftCol][entityRightCol];
-                tile2 = gp.tileM.tile[entityRightCol][entityRightCol];
+                tile1 = gp.tileM.tile[entityRightCol][entityRightCol];
+                tile2 = gp.tileM.tile[entityLeftCol][entityRightCol];
                 if (!tile1.isPassable() || !tile2.isPassable()) {
                     entity.collisionOn = true;
                 }
