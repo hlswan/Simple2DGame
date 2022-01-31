@@ -68,24 +68,16 @@ public class Player extends Entity {
             isStationary = false;
             if (keyH.rightPressed && keyH.upPressed) {
                 direction = "right-up";
-                worldX += speed - 1;
-                worldY -= speed - 1;
 
             }
             else if (keyH.leftPressed && keyH.upPressed) {
                 direction = "left-up";
-                worldX -= speed - 1;
-                worldY -= speed - 1;
             }
             else if (keyH.rightPressed && keyH.downPressed) {
                 direction = "right-down";
-                worldX += speed - 1;
-                worldY += speed - 1;
             }
             else if (keyH.leftPressed && keyH.downPressed) {
                 direction = "left-down";
-                worldX -= speed - 1;
-                worldY += speed - 1;
             }
            if (keyH.upPressed) {
                 direction = "up";
@@ -115,10 +107,10 @@ public class Player extends Entity {
 
             if (!collisionOn) {
                 switch (direction) {
-                    case "right-up": worldX += speed; worldY -= speed; break;
-                    case "left-up": worldX -= speed; worldY -= speed; break;
-                    case "right-down": worldX += speed; worldY += speed; break;
-                    case "left-down": worldX -= speed; worldY -= speed; break;
+                    case "right-up": worldX += speed/2; worldY -= speed/2; break;
+                    case "left-up": worldX -= speed/2; worldY -= speed/2; break;
+                    case "right-down": worldX += speed/2; worldY += speed/2; break;
+                    case "left-down": worldX -= speed/2; worldY -= speed/2; break;
                     case "up": worldY -= speed; break;
                     case "down": worldY += speed; break;
                     case "left": worldX -= speed; break;
