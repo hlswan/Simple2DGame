@@ -98,7 +98,7 @@ public class Player extends Entity {
             else if (keyH.leftPressed) {
                 direction = "left";
             }
-            else {
+            else if (keyH.rightPressed) {
                 direction = "right";
             }
             spriteCounter++;
