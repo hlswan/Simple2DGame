@@ -36,10 +36,11 @@ public class Player extends Entity {
     }
     public void setDefaultValues() {
 
-        worldX = gp.tileSize * 16;
-        worldY = gp.tileSize * 16;
-        speed = 6;
+        worldX = gp.tileSize * 2;
+        worldY = gp.tileSize * 1;
+        speed = 3;
         direction = "down";
+        isSwimming = false;
     }
     public void getPlayerImage() {
 
@@ -112,9 +113,18 @@ public class Player extends Entity {
             }
             // Collision checker
             collisionOn = false;
-            gp.collisionChecker.checkTile(this);
+            gp.collisionChecker.checkTile(this); //checks if the tile you want to move into is passable or swimmable etc...
 
             if (!collisionOn) {
+                switch (direction) {
+                    case "up": worldY -= speed; break;
+                    case "down": worldY += speed; break;
+                    case "left": worldX -= speed; break;
+                    case "right": worldX += speed; break;
+                }
+            } else if (isSwimming) {
+                speed = 6;
+                System.out.println("isSwimming = true");
                 switch (direction) {
                     case "up": worldY -= speed; break;
                     case "down": worldY += speed; break;

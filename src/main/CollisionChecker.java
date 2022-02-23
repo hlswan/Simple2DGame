@@ -16,46 +16,56 @@ public class CollisionChecker {
         int entityTopWorldY = entity.worldY + entity.solidArea.y;
         int entityBottomWorldY = entity.worldY + entity.solidArea.y + entity.solidArea.height;
 
-        int entityLeftCol = entityLeftWorldX/gp.tileSize;
-        int entityRightCol = entityRightWorldX/gp.tileSize;
-        int entityTopRow = entityTopWorldY/gp.tileSize;
-        int entityBottomRow = entityBottomWorldY/gp.tileSize;
+        int curLeftCol = entityLeftWorldX/gp.tileSize;
+        int curRightCol = (entityRightWorldX/gp.tileSize);
+        int curTopRow = entityTopWorldY/gp.tileSize;
+        int curBottomRow = entityBottomWorldY/gp.tileSize;
 
         Tile tile1, tile2;
 
         switch (entity.direction) {
-            case "up":
-                entityTopRow = (entityTopWorldY - entity.speed)/gp.tileSize;
-                tile1 = gp.tileM.tile[entityLeftCol][entityTopRow];
-                tile2 = gp.tileM.tile[entityRightCol][entityTopRow];
+            case "right":
+                int nextRightCol = ((entityRightWorldX + entity.speed)/gp.tileSize);
+                tile1 = gp.tileM.tile[nextRightCol][curTopRow];
+                tile2 = gp.tileM.tile[nextRightCol][curBottomRow];
                 if (!tile1.isPassable() || !tile2.isPassable()) {
                     entity.collisionOn = true;
-                }
-                break;
-            case "down":
-                entityBottomRow = (entityBottomWorldY - entity.speed)/gp.tileSize;
-                tile1 = gp.tileM.tile[entityLeftCol][entityBottomRow];
-                tile2 = gp.tileM.tile[entityRightCol][entityBottomRow];
-                if (!tile1.isPassable() || !tile2.isPassable()) {
-                    entity.collisionOn = true;
+                } else if(tile1.isSwimable()) {
+                    entity.isSwimming = true;
                 }
                 break;
             case "left":
-                entityLeftCol = (entityLeftWorldX - entity.speed)/gp.tileSize;
-                tile1 = gp.tileM.tile[entityLeftCol][entityLeftCol];
-                tile2 = gp.tileM.tile[entityRightCol][entityLeftCol];
+                int nextLeftCol = (entityLeftWorldX - entity.speed) / gp.tileSize;
+                tile1 = gp.tileM.tile[nextLeftCol][curTopRow];
+                tile2 = gp.tileM.tile[nextLeftCol][curBottomRow];
                 if (!tile1.isPassable() || !tile2.isPassable()) {
                     entity.collisionOn = true;
+                } else if(tile1.isSwimable()) {
+                    entity.isSwimming = true;
                 }
                 break;
-            case "right":
-                entityRightCol = (entityRightWorldX - entity.speed)/gp.tileSize;
-                tile1 = gp.tileM.tile[entityLeftCol][entityRightCol];
-                tile2 = gp.tileM.tile[entityRightCol][entityRightCol];
+
+            case "up":
+                int nextTopRow = (entityTopWorldY - entity.speed)/gp.tileSize;
+                tile1 = gp.tileM.tile[curLeftCol][nextTopRow];
+                tile2 = gp.tileM.tile[curRightCol][nextTopRow];
                 if (!tile1.isPassable() || !tile2.isPassable()) {
                     entity.collisionOn = true;
+                } else if(tile1.isSwimable()) {
+                    entity.isSwimming = true;
                 }
                 break;
+            case "down":
+                int nextBottomRow = (entityBottomWorldY + entity.speed)/gp.tileSize;
+                tile1 = gp.tileM.tile[curLeftCol][nextBottomRow];
+                tile2 = gp.tileM.tile[curRightCol][nextBottomRow];
+                if (!tile1.isPassable() || !tile2.isPassable()) {
+                    entity.collisionOn = true;
+                } else if(tile1.isSwimable()) {
+                    entity.isSwimming = true;
+                }
+                break;
+
         }
     }
 }

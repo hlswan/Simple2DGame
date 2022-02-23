@@ -16,4 +16,5 @@ public class Entity {
     public boolean isStationary = true;
     public Rectangle solidArea;
     public boolean collisionOn = false;
+    public boolean isSwimming = false;
 }

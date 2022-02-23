@@ -28,7 +28,6 @@ public class Tile {
 
     public BufferedImage getImage() { return image;}
     public boolean isPassable() { return passable;}
-    public boolean isWalkable() { return walkable;}
     public boolean isSwimable() { return swimable;}
 
     public static Tile GRASS = new Tile(true, true, false, "/tiles/grass/grass_tile_blank.png");
@@ -47,6 +46,10 @@ public class Tile {
             case "fe":
                 tile = Tile.FENCE;
                 break;
+            case "gr1":
+                tile = Tile.DETAILED_GRASS_ONE;
+                break;
+
             default:
                 throw new IllegalStateException("Unexpected value: " + tileType);
         }
