@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Simple2DGame:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Simple2DGame_jar</output-path>
+    <root id="archive" name="Simple2DGame.jar">
+      <element id="module-output" name="Simple2DGame" />
+    </root>
+  </artifact>
+</component>

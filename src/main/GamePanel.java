@@ -2,8 +2,6 @@ package main;
 
 import entity.Player;
 import object.SuperObject;
-import org.w3c.dom.ls.LSOutput;
-import tile.Tile;
 import tile.TileManager;
 
 import javax.swing.*;
@@ -31,7 +29,7 @@ public class GamePanel extends JPanel implements Runnable {
     TileManager tileM = new TileManager(this);
     KeyHandler keyH = new KeyHandler();
     Thread gameThread;
-    public CollisionChecker collisionChecker = new CollisionChecker(this);
+    public TileChecker collisionChecker = new TileChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
     public Player player = new Player(this,keyH);
 

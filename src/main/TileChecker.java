@@ -3,10 +3,10 @@ package main;
 import entity.Entity;
 import tile.Tile;
 
-public class CollisionChecker {
+public class TileChecker {
     GamePanel gp;
 
-    public CollisionChecker(GamePanel gp) {
+    public TileChecker(GamePanel gp) {
         this.gp = gp;
     }
     public void checkTile(Entity entity) {
