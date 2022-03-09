@@ -8,7 +8,9 @@ public class Entity {
     public int worldX, worldY;
     public int speed;
 
-    public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2, upStationary, downStationary;
+    public BufferedImage walkingUp1, walkingUp2, walkingDown1, walkingDown2, walkingLeft1, walkingLeft2, walkingRight1, walkingRight2, walkingUpStationary, walkingDownStationary;
+    public BufferedImage swimmingUp1, swimmingUp2, swimmingDown1, swimmingDown2, swimmingLeft1, swimmingLeft2, swimmingRight1, swimmingRight2;
+
     public String direction;
 
     public int spriteCounter = 0;

@@ -6,9 +6,7 @@ import main.KeyHandler;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import java.util.Objects;
 
 public class Player extends Entity {
 
@@ -17,6 +15,8 @@ public class Player extends Entity {
 
     public final int screenX;
     public final int screenY;
+    private int walkingSpeed = 3;
+    private int swimmingSpeed = 4;
 
 
 
@@ -46,16 +46,24 @@ public class Player extends Entity {
 
         try {
 
-            up1 = ImageIO.read(getClass().getResourceAsStream("/player/duck_walking_up_1.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/player/duck_walking_up_2.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/player/duck_walking_down_1.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/player/duck_walking_down_2.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("/player/duck_walking_right_1.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/player/duck_walking_right_2.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("/player/duck_walking_left_1.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/player/duck_walking_left_2.png"));
-            upStationary = ImageIO.read(getClass().getResourceAsStream("/player/duck_stationary_up.png"));
-            downStationary = ImageIO.read(getClass().getResourceAsStream("/player/duck_stationary_down.png"));
+            walkingUp1 = ImageIO.read(getClass().getResourceAsStream("/player/duck_walking_up_1.png"));
+            walkingUp2 = ImageIO.read(getClass().getResourceAsStream("/player/duck_walking_up_2.png"));
+            walkingDown1 = ImageIO.read(getClass().getResourceAsStream("/player/duck_walking_down_1.png"));
+            walkingDown2 = ImageIO.read(getClass().getResourceAsStream("/player/duck_walking_down_2.png"));
+            walkingRight1 = ImageIO.read(getClass().getResourceAsStream("/player/duck_walking_right_1.png"));
+            walkingRight2 = ImageIO.read(getClass().getResourceAsStream("/player/duck_walking_right_2.png"));
+            walkingLeft1 = ImageIO.read(getClass().getResourceAsStream("/player/duck_walking_left_1.png"));
+            walkingLeft2 = ImageIO.read(getClass().getResourceAsStream("/player/duck_walking_left_2.png"));
+            swimmingUp1 = ImageIO.read(getClass().getResourceAsStream("/player/duck_swimming_up_1.png"));
+            swimmingUp2 = ImageIO.read(getClass().getResourceAsStream("/player/duck_swimming_up_2.png"));
+            swimmingDown1 = ImageIO.read(getClass().getResourceAsStream("/player/duck_swimming_down_1.png"));
+            swimmingDown2 = ImageIO.read(getClass().getResourceAsStream("/player/duck_swimming_down_2.png"));
+            swimmingRight1 = ImageIO.read(getClass().getResourceAsStream("/player/duck_swimming_right_1.png"));
+            swimmingRight2 = ImageIO.read(getClass().getResourceAsStream("/player/duck_swimming_right_2.png"));
+            swimmingLeft1 = ImageIO.read(getClass().getResourceAsStream("/player/duck_swimming_left_1.png"));
+            swimmingLeft2 = ImageIO.read(getClass().getResourceAsStream("/player/duck_swimming_left_2.png"));
+            walkingUpStationary = ImageIO.read(getClass().getResourceAsStream("/player/duck_stationary_up.png"));
+            walkingDownStationary = ImageIO.read(getClass().getResourceAsStream("/player/duck_stationary_down.png"));
 
         } catch (IOException e){
             e.printStackTrace();
@@ -113,18 +121,17 @@ public class Player extends Entity {
             }
             // Collision checker
             collisionOn = false;
-            gp.collisionChecker.checkTile(this); //checks if the tile you want to move into is passable or swimmable etc...
 
-            if (!collisionOn) {
-                switch (direction) {
-                    case "up": worldY -= speed; break;
-                    case "down": worldY += speed; break;
-                    case "left": worldX -= speed; break;
-                    case "right": worldX += speed; break;
+
+            gp.collisionChecker.checkTile(this); //checks if the tile you want to move into is passable or swimmable etc...
+            if (collisionOn) {
+                // can't walk thru walls!
+            } else {
+                if (isSwimming) {
+                    speed = swimmingSpeed;
+                } else { // walking
+                    speed = walkingSpeed;
                 }
-            } else if (isSwimming) {
-                speed = 6;
-                System.out.println("isSwimming = true");
                 switch (direction) {
                     case "up": worldY -= speed; break;
                     case "down": worldY += speed; break;
@@ -140,46 +147,76 @@ public class Player extends Entity {
     public void draw(Graphics2D g2) {
 
         BufferedImage image = null;
-
-        switch (direction) {
-            case "up":
-                if (isStationary) {
-                    image = upStationary;
-                }
-                else if (spriteNum == 1) {
-                    image = up1;
-                }
-                else {
-                    image = up2;
-                }
-                break;
-            case "down":
-                if (isStationary) {
-                    image = downStationary;
-                }
-                else if (spriteNum == 1) {
-                    image = down1;
-                }
-                else {
-                    image = down2;
-                }
-                break;
-            case "left":
-                if (spriteNum == 1 || isStationary) {
-                    image = left1;
-                }
-                else {
-                    image = left2;
-                }
-                break;
-            case "right":
-                if (spriteNum == 1 || isStationary) {
-                    image = right1;
-                }
-                else {
-                    image = right2;
-                }
-                break;
+        if (isSwimming) {
+            switch (direction) {
+                case "up":
+                    if (spriteNum == 1) {
+                        image = swimmingUp1;
+                    }
+                    else {
+                        image = swimmingUp2;
+                    }
+                    break;
+                case "down":
+                    if (spriteNum == 1) {
+                        image = swimmingDown1;
+                    }
+                    else {
+                        image = swimmingDown2;
+                    }
+                    break;
+                case "left":
+                    if (spriteNum == 1 || isStationary) {
+                        image = swimmingLeft1;
+                    }
+                    else {
+                        image = swimmingLeft2;
+                    }
+                    break;
+                case "right":
+                    if (spriteNum == 1 || isStationary) {
+                        image = swimmingRight1;
+                    }
+                    else {
+                        image = swimmingRight2;
+                    }
+                    break;
+            }
+        } else { //on land
+            switch (direction) {
+                case "up":
+                    if (isStationary) {
+                        image = walkingUpStationary;
+                    } else if (spriteNum == 1) {
+                        image = walkingUp1;
+                    } else {
+                        image = walkingUp2;
+                    }
+                    break;
+                case "down":
+                    if (isStationary) {
+                        image = walkingDownStationary;
+                    } else if (spriteNum == 1) {
+                        image = walkingDown1;
+                    } else {
+                        image = walkingDown2;
+                    }
+                    break;
+                case "left":
+                    if (spriteNum == 1 || isStationary) {
+                        image = walkingLeft1;
+                    } else {
+                        image = walkingLeft2;
+                    }
+                    break;
+                case "right":
+                    if (spriteNum == 1 || isStationary) {
+                        image = walkingRight1;
+                    } else {
+                        image = walkingRight2;
+                    }
+                    break;
+            }
         }
         g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
     }

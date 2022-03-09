@@ -28,44 +28,33 @@ public class CollisionChecker {
                 int nextRightCol = ((entityRightWorldX + entity.speed)/gp.tileSize);
                 tile1 = gp.tileM.tile[nextRightCol][curTopRow];
                 tile2 = gp.tileM.tile[nextRightCol][curBottomRow];
-                if (!tile1.isPassable() || !tile2.isPassable()) {
-                    entity.collisionOn = true;
-                } else if(tile1.isSwimable()) {
-                    entity.isSwimming = true;
-                }
                 break;
             case "left":
                 int nextLeftCol = (entityLeftWorldX - entity.speed) / gp.tileSize;
                 tile1 = gp.tileM.tile[nextLeftCol][curTopRow];
                 tile2 = gp.tileM.tile[nextLeftCol][curBottomRow];
-                if (!tile1.isPassable() || !tile2.isPassable()) {
-                    entity.collisionOn = true;
-                } else if(tile1.isSwimable()) {
-                    entity.isSwimming = true;
-                }
                 break;
 
             case "up":
                 int nextTopRow = (entityTopWorldY - entity.speed)/gp.tileSize;
                 tile1 = gp.tileM.tile[curLeftCol][nextTopRow];
                 tile2 = gp.tileM.tile[curRightCol][nextTopRow];
-                if (!tile1.isPassable() || !tile2.isPassable()) {
-                    entity.collisionOn = true;
-                } else if(tile1.isSwimable()) {
-                    entity.isSwimming = true;
-                }
                 break;
             case "down":
                 int nextBottomRow = (entityBottomWorldY + entity.speed)/gp.tileSize;
                 tile1 = gp.tileM.tile[curLeftCol][nextBottomRow];
                 tile2 = gp.tileM.tile[curRightCol][nextBottomRow];
-                if (!tile1.isPassable() || !tile2.isPassable()) {
-                    entity.collisionOn = true;
-                } else if(tile1.isSwimable()) {
-                    entity.isSwimming = true;
-                }
                 break;
-
+            default:
+                throw new IllegalStateException("Error: Unknown Direction");
+        }
+        if (!tile1.isPassable() || !tile2.isPassable()) {
+            entity.collisionOn = true;
+        } else if(tile1.isSwimable() || tile2.isSwimable()) {
+            entity.isSwimming = true;
+        } else {
+            entity.isSwimming = false;
+            entity.collisionOn = false;
         }
     }
 }

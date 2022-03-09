@@ -1,6 +1,7 @@
 package main;
 
 import entity.Player;
+import object.SuperObject;
 import org.w3c.dom.ls.LSOutput;
 import tile.Tile;
 import tile.TileManager;
@@ -31,10 +32,12 @@ public class GamePanel extends JPanel implements Runnable {
     KeyHandler keyH = new KeyHandler();
     Thread gameThread;
     public CollisionChecker collisionChecker = new CollisionChecker(this);
+    public AssetSetter aSetter = new AssetSetter(this);
     public Player player = new Player(this,keyH);
 
     // frames per second
     final int FPS = 60;
+    public SuperObject[] obj = new SuperObject[10];
 
     public GamePanel() {
 
