@@ -8,9 +8,12 @@ import java.awt.image.BufferedImage;
 public class SuperObject {
     public BufferedImage image;
     public String name;
-    public boolean passable = true;
+    public boolean isPassable = true;
     public int worldX;
     public int worldY;
+    public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
+    public int solidAreaDefaultX = 0;
+    public int solidAreaDefaultY = 0;
 
     public void draw(Graphics2D g2, GamePanel gp) {
         int screenX = worldX - gp.player.worldX + gp.player.screenX;

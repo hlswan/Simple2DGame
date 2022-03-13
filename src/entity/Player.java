@@ -17,6 +17,7 @@ public class Player extends Entity {
     public final int screenY;
     private final int walkingSpeed = 3;
     private final int swimmingSpeed = 4;
+    int keysInInventory = 0;
 
 
 
@@ -31,11 +32,13 @@ public class Player extends Entity {
         screenX = gp.screenWidth/2 -(gp.tileSize/2);
         screenY = gp.screenHeight/2 -(gp.tileSize/2);
 
-        solidArea = new Rectangle(12, 18, 30,18);
+        solidArea = new Rectangle(12, 18, 30,29); //HITBOX!!
+
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
 
     }
     public void setDefaultValues() {
-
         worldX = gp.tileSize * 2;
         worldY = gp.tileSize * 2;
         speed = 3;
@@ -71,15 +74,12 @@ public class Player extends Entity {
         }
     }
     public void update() {
-
-
         if (keyH.upPressed || keyH.downPressed || keyH.rightPressed || keyH.leftPressed) {
             isStationary = false;
-            /*if (keyH.rightPressed && keyH.upPressed) {
+            /* if (keyH.rightPressed && keyH.upPressed) {
                 direction = "right";
                 worldX += speed - 1;
                 worldY -= speed - 1;
-
             }
             else if (keyH.leftPressed && keyH.upPressed) {
                 direction = "left";
@@ -95,8 +95,8 @@ public class Player extends Entity {
                 direction = "left";
                 worldX -= speed - 1;
                 worldY += speed - 1;
-            }
-            */
+            } */
+
            if (keyH.upPressed) {
                 direction = "up";
             }
@@ -122,8 +122,12 @@ public class Player extends Entity {
             // Collision checker
             collisionOn = false;
 
-
+            //checks if the tile you want to move into is passable or swimmable etc...
             gp.collisionChecker.checkTile(this); //checks if the tile you want to move into is passable or swimmable etc...
+            //checks if the tile you want to move into is occupied by an object
+            int objIndex = gp.collisionChecker.checkObject(this, true);
+            pickUpObject(objIndex);
+
             if (collisionOn) {
                 // can't walk thru walls!
             } else {
@@ -142,7 +146,32 @@ public class Player extends Entity {
         } else {
             isStationary = true;
         }
+    }
+    public void pickUpObject(int i) {
+        boolean removeObject = false;
+        if (i != 999) {
+            String objName = gp.obj[i].name;
+            switch (objName) { // if we pickup a key remember that we have a key for later
+                case "Key":
+                    removeObject = true;
+                    keysInInventory++;
+                    System.out.println("You just picked up a key. You have "+keysInInventory+ " keys.");
+                    break;
+                case "Door": // if we interact with a door it will open only when we have a key
+                    if(keysInInventory > 0) {
+                        gp.obj[i] = null;
+                        keysInInventory--;
+                        System.out.println("You just used one of your keys to open this door. You have "+keysInInventory+ " keys left.");
+                    }
+                    break;
+                case "Chest":
+                    break;
+            }
+            if (removeObject) {
+               gp.obj[i] = null;
+            }
 
+        }
     }
     public void draw(Graphics2D g2) {
 
@@ -219,5 +248,6 @@ public class Player extends Entity {
             }
         }
         g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+        g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
     }
 }

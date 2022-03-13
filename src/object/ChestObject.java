@@ -15,8 +15,7 @@ public class ChestObject extends SuperObject {
             e.printStackTrace();
             System.out.println("Error when reading resource location at ChestObject 12");
         }
-        worldX = 8 * gp.tileSize;
-        worldY = 12 * gp.tileSize;
+        isPassable = false;
     }
 
 }

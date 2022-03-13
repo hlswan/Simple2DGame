@@ -3,10 +3,10 @@ package main;
 import entity.Entity;
 import tile.Tile;
 
-public class TileChecker {
+public class CollisionChecker {
     GamePanel gp;
 
-    public TileChecker(GamePanel gp) {
+    public CollisionChecker(GamePanel gp) {
         this.gp = gp;
     }
     public void checkTile(Entity entity) {
@@ -54,5 +54,42 @@ public class TileChecker {
             entity.isSwimming = false;
             entity.collisionOn = false;
         }
+    }
+    public int checkObject(Entity entity, boolean player) {
+        int index = 999;
+
+        for(int i = 0; i < gp.obj.length; i++) {
+
+            if(gp.obj[i] != null) {
+                //Get pos entity's solid area
+                entity.solidArea.x = entity.worldX + entity.solidArea.x;
+                entity.solidArea.y = entity.worldY + entity.solidArea.y;
+                //Get pos object's solid area
+                gp.obj[i].solidArea.x = gp.obj[i].worldX + gp.obj[i].solidArea.x;
+                gp.obj[i].solidArea.y = gp.obj[i].worldY + gp.obj[i].solidArea.y;
+
+                switch (entity.direction) { //checks where the player will be when they move next.
+                    case "up" -> entity.solidArea.y -= entity.speed;
+                    case "down" -> entity.solidArea.y += entity.speed;
+                    case "left" -> entity.solidArea.x -= entity.speed;
+                    case "right" -> entity.solidArea.x += entity.speed;
+                }
+                if(entity.solidArea.intersects(gp.obj[i].solidArea)) { //does the players hitbox intersect with the objects hitbox?
+                    if (!gp.obj[i].isPassable) { //if the hitboxes do intersect, then is the object passable?
+                        entity.collisionOn = true; // if it's not passable then turn on collision, which stops movement
+                    }
+                    if (player) {
+                        index = i;
+                    }
+                }
+                entity.solidArea.x = entity.solidAreaDefaultX;
+                entity.solidArea.y = entity.solidAreaDefaultY;
+                gp.obj[i].solidArea.x = gp.obj[i].solidAreaDefaultX;
+                gp.obj[i].solidArea.y = gp.obj[i].solidAreaDefaultY;
+
+
+            }
+        }
+        return index;
     }
 }
