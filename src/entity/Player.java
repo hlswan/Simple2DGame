@@ -15,8 +15,8 @@ public class Player extends Entity {
 
     public final int screenX;
     public final int screenY;
-    private int walkingSpeed = 3;
-    private int swimmingSpeed = 4;
+    private final int walkingSpeed = 3;
+    private final int swimmingSpeed = 4;
 
 
 
@@ -37,7 +37,7 @@ public class Player extends Entity {
     public void setDefaultValues() {
 
         worldX = gp.tileSize * 2;
-        worldY = gp.tileSize * 1;
+        worldY = gp.tileSize * 2;
         speed = 3;
         direction = "down";
         isSwimming = false;

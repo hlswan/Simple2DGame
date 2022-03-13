@@ -24,29 +24,27 @@ public class TileChecker {
         Tile tile1, tile2;
 
         switch (entity.direction) {
-            case "right":
-                int nextRightCol = ((entityRightWorldX + entity.speed)/gp.tileSize);
+            case "right" -> {
+                int nextRightCol = ((entityRightWorldX + entity.speed) / gp.tileSize);
                 tile1 = gp.tileM.tile[nextRightCol][curTopRow];
                 tile2 = gp.tileM.tile[nextRightCol][curBottomRow];
-                break;
-            case "left":
+            }
+            case "left" -> {
                 int nextLeftCol = (entityLeftWorldX - entity.speed) / gp.tileSize;
                 tile1 = gp.tileM.tile[nextLeftCol][curTopRow];
                 tile2 = gp.tileM.tile[nextLeftCol][curBottomRow];
-                break;
-
-            case "up":
-                int nextTopRow = (entityTopWorldY - entity.speed)/gp.tileSize;
+            }
+            case "up" -> {
+                int nextTopRow = (entityTopWorldY - entity.speed) / gp.tileSize;
                 tile1 = gp.tileM.tile[curLeftCol][nextTopRow];
                 tile2 = gp.tileM.tile[curRightCol][nextTopRow];
-                break;
-            case "down":
-                int nextBottomRow = (entityBottomWorldY + entity.speed)/gp.tileSize;
+            }
+            case "down" -> {
+                int nextBottomRow = (entityBottomWorldY + entity.speed) / gp.tileSize;
                 tile1 = gp.tileM.tile[curLeftCol][nextBottomRow];
                 tile2 = gp.tileM.tile[curRightCol][nextBottomRow];
-                break;
-            default:
-                throw new IllegalStateException("Error: Unknown Direction");
+            }
+            default -> throw new IllegalStateException("Error: Unknown Direction");
         }
         if (!tile1.isPassable() || !tile2.isPassable()) {
             entity.collisionOn = true;

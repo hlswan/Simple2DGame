@@ -2,12 +2,12 @@ package object;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
+;
 import main.GamePanel;
 
 public class KeyObject extends SuperObject {
     GamePanel gp;
-    public KeyObject() {
-
+    public KeyObject(GamePanel gp) {
         name = "Key";
         try {
             image = ImageIO.read(getClass().getResourceAsStream("/objects/key.png"));
@@ -18,4 +18,5 @@ public class KeyObject extends SuperObject {
         worldX = 5 * gp.tileSize;
         worldY = 5 * gp.tileSize;
     }
+
 }

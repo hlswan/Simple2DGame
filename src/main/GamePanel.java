@@ -47,6 +47,10 @@ public class GamePanel extends JPanel implements Runnable {
 
     }
 
+    public void setupGame() {
+        aSetter.setObject();
+    }
+
     public void startGameThread() {
 
         gameThread = new Thread(this);
@@ -87,6 +91,11 @@ public class GamePanel extends JPanel implements Runnable {
 
         tileM.draw(g2);
         player.draw(g2);
+        for(int i = 0; i < obj.length; i++) {
+            if(obj[i] != null) {
+                obj[i].draw(g2, this);
+            }
+        }
 
         g2.dispose();
     }
