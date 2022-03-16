@@ -2,6 +2,7 @@ package entity;
 
 import main.GamePanel;
 import main.KeyHandler;
+import sound.Sound;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -17,7 +18,9 @@ public class Player extends Entity {
     public final int screenY;
     private final int walkingSpeed = 3;
     private final int swimmingSpeed = 4;
-    int keysInInventory = 0;
+    private final int powerUpWalkingSpeed = 4;
+    private boolean powerUp;
+    public int keysInInventory = 0;
 
 
 
@@ -133,8 +136,10 @@ public class Player extends Entity {
             } else {
                 if (isSwimming) {
                     speed = swimmingSpeed;
-                } else { // walking
+                } else if (!powerUp){ // walking with no powerUp
                     speed = walkingSpeed;
+                } else { // walking with powerUp
+                    speed = powerUpWalkingSpeed;
                 }
                 switch (direction) {
                     case "up": worldY -= speed; break;
@@ -151,20 +156,26 @@ public class Player extends Entity {
         boolean removeObject = false;
         if (i != 999) {
             String objName = gp.obj[i].name;
-            switch (objName) { // if we pickup a key remember that we have a key for later
+            switch (objName) { // if we pick up a key remember that we have a key for later
                 case "Key":
                     removeObject = true;
                     keysInInventory++;
-                    System.out.println("You just picked up a key. You have "+keysInInventory+ " keys.");
+                    Sound.COIN.play();
                     break;
                 case "Door": // if we interact with a door it will open only when we have a key
                     if(keysInInventory > 0) {
                         gp.obj[i] = null;
                         keysInInventory--;
-                        System.out.println("You just used one of your keys to open this door. You have "+keysInInventory+ " keys left.");
+                        Sound.UNLOCK.play();
                     }
                     break;
+                case "Boots": // if we pick up these boots our speed on land will increase
+                    powerUp = true;
+                    gp.obj[i] = null;
+                    Sound.POWERUP.play();
+                    break;
                 case "Chest":
+                    Sound.POWERUP.play();
                     break;
             }
             if (removeObject) {
@@ -248,6 +259,6 @@ public class Player extends Entity {
             }
         }
         g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
-        g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
+        //g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
     }
 }

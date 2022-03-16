@@ -2,6 +2,7 @@ package main;
 
 import entity.Player;
 import object.SuperObject;
+import sound.Sound;
 import tile.TileManager;
 
 import javax.swing.*;
@@ -29,13 +30,17 @@ public class GamePanel extends JPanel implements Runnable {
     TileManager tileM = new TileManager(this);
     KeyHandler keyH = new KeyHandler();
     Thread gameThread;
+    //collision
     public CollisionChecker collisionChecker = new CollisionChecker(this);
-    public AssetSetter aSetter = new AssetSetter(this);
+    //player
     public Player player = new Player(this,keyH);
+    //items on the ground
+    public SuperObject[] obj = new SuperObject[10];
+    public AssetSetter aSetter = new AssetSetter(this);
 
     // frames per second
     final int FPS = 60;
-    public SuperObject[] obj = new SuperObject[10];
+
 
     public GamePanel() {
 
@@ -49,6 +54,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setupGame() {
         aSetter.setObject();
+        playMusic(); //play "Blue Boy Adventure"
     }
 
     public void startGameThread() {
@@ -98,6 +104,12 @@ public class GamePanel extends JPanel implements Runnable {
         player.draw(g2);
 
         g2.dispose();
+    }
+    public void playMusic() {
+        Sound.BLUE_BOY_ADVENTURE.play();
+    }
+    public void stopMusic() {
+        Sound.BLUE_BOY_ADVENTURE.stop();
     }
 }
 
