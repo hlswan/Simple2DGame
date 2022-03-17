@@ -19,8 +19,9 @@ public class Player extends Entity {
     private final int walkingSpeed = 3;
     private final int swimmingSpeed = 4;
     private final int powerUpWalkingSpeed = 4;
-    private boolean powerUp;
+    public boolean powerUp;
     public int keysInInventory = 0;
+    public boolean gameFinished;
 
 
 
@@ -153,35 +154,29 @@ public class Player extends Entity {
         }
     }
     public void pickUpObject(int i) {
-        boolean removeObject = false;
         if (i != 999) {
             String objName = gp.obj[i].name;
             switch (objName) { // if we pick up a key remember that we have a key for later
                 case "Key":
-                    removeObject = true;
                     keysInInventory++;
                     Sound.COIN.play();
                     break;
                 case "Door": // if we interact with a door it will open only when we have a key
                     if(keysInInventory > 0) {
-                        gp.obj[i] = null;
                         keysInInventory--;
                         Sound.UNLOCK.play();
                     }
                     break;
                 case "Boots": // if we pick up these boots our speed on land will increase
                     powerUp = true;
-                    gp.obj[i] = null;
                     Sound.POWERUP.play();
                     break;
-                case "Chest":
-                    Sound.POWERUP.play();
+                case "Chest": // opening the chest means you beat the level.
+                    Sound.FANFARE.play();
+                    gameFinished = true;
                     break;
             }
-            if (removeObject) {
-               gp.obj[i] = null;
-            }
-
+            gp.obj[i] = null;
         }
     }
     public void draw(Graphics2D g2) {

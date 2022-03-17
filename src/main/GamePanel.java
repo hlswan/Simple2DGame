@@ -1,10 +1,10 @@
 package main;
 
+import UI.UI;
 import entity.Player;
 import object.SuperObject;
 import sound.Sound;
 import tile.TileManager;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -26,12 +26,12 @@ public class GamePanel extends JPanel implements Runnable {
     public final int worldWidth = tileSize * maxWorldCol;
     public final int worldHeight = tileSize * maxWorldRow;
 
-
     TileManager tileM = new TileManager(this);
     KeyHandler keyH = new KeyHandler();
     Thread gameThread;
     //collision
     public CollisionChecker collisionChecker = new CollisionChecker(this);
+    public UI ui = new UI(this);
     //player
     public Player player = new Player(this,keyH);
     //items on the ground
@@ -41,28 +41,22 @@ public class GamePanel extends JPanel implements Runnable {
     // frames per second
     final int FPS = 60;
 
-
     public GamePanel() {
-
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true);
-
     }
-
     public void setupGame() {
         aSetter.setObject();
         playMusic(); //play "Blue Boy Adventure"
     }
-
     public void startGameThread() {
 
         gameThread = new Thread(this);
         gameThread.start();
     }
-
     @Override
     public void run() {
 
@@ -102,6 +96,7 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
         player.draw(g2);
+        ui.draw(g2);
 
         g2.dispose();
     }
@@ -112,4 +107,3 @@ public class GamePanel extends JPanel implements Runnable {
         Sound.BLUE_BOY_ADVENTURE.stop();
     }
 }
-
