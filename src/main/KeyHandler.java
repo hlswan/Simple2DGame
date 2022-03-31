@@ -3,9 +3,17 @@ package main;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class KeyHandler implements KeyListener {
 
-    public boolean upPressed, downPressed, leftPressed, rightPressed, hPressed;
+public class KeyHandler implements KeyListener {
+    GamePanel gp;
+
+    public boolean upPressed, downPressed, leftPressed, rightPressed;
+
+    public boolean debugCheckDrawTime;
+
+    public KeyHandler(GamePanel gp) {
+        this.gp = gp;
+    }
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -28,6 +36,22 @@ public class KeyHandler implements KeyListener {
         }
         if(code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
             rightPressed = true;
+        }
+        if(code == KeyEvent.VK_ESCAPE) {
+            if (gp.gameState == gp.playState) {
+                gp.gameState = gp.pausedState;
+            } else if (gp.gameState == gp.pausedState) {
+                gp.gameState = gp.playState;
+            }
+
+        }
+        //debug
+        if(code == KeyEvent.VK_SLASH) {
+            if (!debugCheckDrawTime) {
+                debugCheckDrawTime = true;
+            } else {
+                debugCheckDrawTime = false;
+            }
         }
     }
 

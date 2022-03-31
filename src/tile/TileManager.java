@@ -1,6 +1,7 @@
 package tile;
 
 import main.GamePanel;
+import main.UtilityTool;
 
 import java.awt.*;
 import java.io.BufferedReader;
@@ -10,30 +11,31 @@ import java.io.InputStreamReader;
 
 public class TileManager {
     GamePanel gp;
-    public Tile tile[][];
+    public Tile[][] tile;
+    UtilityTool uTool = new UtilityTool();
 
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
 
-        tile = new Tile[gp.maxWorldCol][gp.maxWorldRow];
+        tile = new Tile[GamePanel.maxWorldCol][GamePanel.maxWorldRow];
 
         loadMap();
     }
 
     public void loadMap() {
         try {
-            InputStream is = getClass().getResourceAsStream("/maps/map.txt");
+            InputStream is = getClass().getResourceAsStream("/maps/forest.txt");
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
             int col = 0;
             int row = 0;
 
-            while (row < gp.maxWorldRow) {
+            while (row < GamePanel.maxWorldRow) {
                 String line = br.readLine();
 
                 String[] strs = line.split(" ");
-                while (col < gp.maxWorldCol) {
+                while (col < GamePanel.maxWorldCol) {
                     tile[col][row] = Tile.convertTileFromStr(strs[col]);
                     col++;
                 }
@@ -51,15 +53,18 @@ public class TileManager {
         int worldRow = 0;
 
 
-        while(worldRow < gp.maxWorldRow) {
-            while (worldCol < gp.maxWorldCol) {
+        while(worldRow < GamePanel.maxWorldRow) {
+            while (worldCol < GamePanel.maxWorldCol) {
                 Tile tile = this.tile[worldCol][worldRow];
-                int worldX = worldCol * gp.tileSize;
-                int worldY = worldRow * gp.tileSize;
+                int worldX = worldCol * GamePanel.tileSize;
+                int worldY = worldRow * GamePanel.tileSize;
 
                 int screenX = worldX - gp.player.worldX + gp.player.screenX;
                 int screenY = worldY - gp.player.worldY + gp.player.screenY;
-                g2.drawImage(tile.getImage(), screenX, screenY, gp.tileSize, gp.tileSize, null);
+
+
+
+                g2.drawImage(tile.getImage(), screenX, screenY, null);
                 worldCol++;
             }
                 worldCol = 0;

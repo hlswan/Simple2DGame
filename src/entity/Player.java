@@ -1,7 +1,9 @@
 package entity;
 
+
 import main.GamePanel;
 import main.KeyHandler;
+import main.UtilityTool;
 import sound.Sound;
 
 import javax.imageio.ImageIO;
@@ -11,30 +13,27 @@ import java.io.IOException;
 
 public class Player extends Entity {
 
-    GamePanel gp;
+
     KeyHandler keyH;
 
     public final int screenX;
     public final int screenY;
     private final int walkingSpeed = 3;
     private final int swimmingSpeed = 4;
-    private final int powerUpWalkingSpeed = 4;
-    public boolean powerUp;
-    public int keysInInventory = 0;
-    public boolean gameFinished;
+
 
 
 
     public Player(GamePanel gp, KeyHandler keyH) {
+        super(gp);
 
-        this.gp = gp;
         this.keyH = keyH;
 
         setDefaultValues();
         getPlayerImage();
 
-        screenX = gp.screenWidth/2 -(gp.tileSize/2);
-        screenY = gp.screenHeight/2 -(gp.tileSize/2);
+        screenX = GamePanel.screenWidth /2 -(GamePanel.tileSize /2);
+        screenY = GamePanel.screenHeight /2 -(GamePanel.tileSize /2);
 
         solidArea = new Rectangle(12, 18, 30,29); //HITBOX!!
 
@@ -43,39 +42,113 @@ public class Player extends Entity {
 
     }
     public void setDefaultValues() {
-        worldX = gp.tileSize;
-        worldY = gp.tileSize;
+        worldX = GamePanel.worldWidth/2;
+        worldY = GamePanel.worldHeight/2;
         speed = 3;
         direction = "down";
         isSwimming = false;
     }
     public void getPlayerImage() {
 
-        try {
+        walkingUp1 = setup("walking_up_1");
+        walkingUp2 = setup("walking_up_2");
+        walkingDown1 = setup("walking_down_1");
+        walkingDown2 = setup("walking_down_2");
+        walkingRight1 = setup("walking_right_1");
+        walkingRight2 = setup("walking_right_2");
+        walkingLeft1 = setup("walking_left_1");
+        walkingLeft2 = setup("walking_left_2");
+        swimmingUp1 = setup("swimming_up_1");
+        swimmingUp2 = setup("swimming_up_2");
+        swimmingDown1 = setup("swimming_down_1");
+        swimmingDown2 = setup("swimming_down_2");
+        swimmingRight1 = setup("swimming_right_1");
+        swimmingRight2 = setup("swimming_right_2");
+        swimmingLeft1 = setup("swimming_left_1");
+        swimmingLeft2 = setup("swimming_left_2");
+        walkingUpStationary = setup("stationary_up");
+        walkingDownStationary= setup("stationary_down");
 
-            walkingUp1 = ImageIO.read(getClass().getResourceAsStream("/player/duck_walking_up_1.png"));
-            walkingUp2 = ImageIO.read(getClass().getResourceAsStream("/player/duck_walking_up_2.png"));
-            walkingDown1 = ImageIO.read(getClass().getResourceAsStream("/player/duck_walking_down_1.png"));
-            walkingDown2 = ImageIO.read(getClass().getResourceAsStream("/player/duck_walking_down_2.png"));
-            walkingRight1 = ImageIO.read(getClass().getResourceAsStream("/player/duck_walking_right_1.png"));
-            walkingRight2 = ImageIO.read(getClass().getResourceAsStream("/player/duck_walking_right_2.png"));
-            walkingLeft1 = ImageIO.read(getClass().getResourceAsStream("/player/duck_walking_left_1.png"));
-            walkingLeft2 = ImageIO.read(getClass().getResourceAsStream("/player/duck_walking_left_2.png"));
-            swimmingUp1 = ImageIO.read(getClass().getResourceAsStream("/player/duck_swimming_up_1.png"));
-            swimmingUp2 = ImageIO.read(getClass().getResourceAsStream("/player/duck_swimming_up_2.png"));
-            swimmingDown1 = ImageIO.read(getClass().getResourceAsStream("/player/duck_swimming_down_1.png"));
-            swimmingDown2 = ImageIO.read(getClass().getResourceAsStream("/player/duck_swimming_down_2.png"));
-            swimmingRight1 = ImageIO.read(getClass().getResourceAsStream("/player/duck_swimming_right_1.png"));
-            swimmingRight2 = ImageIO.read(getClass().getResourceAsStream("/player/duck_swimming_right_2.png"));
-            swimmingLeft1 = ImageIO.read(getClass().getResourceAsStream("/player/duck_swimming_left_1.png"));
-            swimmingLeft2 = ImageIO.read(getClass().getResourceAsStream("/player/duck_swimming_left_2.png"));
-            walkingUpStationary = ImageIO.read(getClass().getResourceAsStream("/player/duck_stationary_up.png"));
-            walkingDownStationary = ImageIO.read(getClass().getResourceAsStream("/player/duck_stationary_down.png"));
+//        try {
+//
+//     //       walkingUp1 = ImageIO.read(getClass().getResourceAsStream("/player/duck_walking_up_1.png"));
+//            walkingUp1 = uTool.scaleImage(walkingUp1, GamePanel.tileSize, GamePanel.tileSize);
+//
+//     //       walkingUp2 = ImageIO.read(getClass().getResourceAsStream("/player/duck_walking_up_2.png"));
+//            walkingUp2 = uTool.scaleImage(walkingUp2, GamePanel.tileSize, GamePanel.tileSize);
+//
+//     //       walkingDown1 = ImageIO.read(getClass().getResourceAsStream("/player/duck_walking_down_1.png"));
+//            walkingDown1 = uTool.scaleImage(walkingDown1, GamePanel.tileSize, GamePanel.tileSize);
+//
+//    //        walkingDown2 = ImageIO.read(getClass().getResourceAsStream("/player/duck_walking_down_2.png"));
+//            walkingDown2 = uTool.scaleImage(walkingDown2, GamePanel.tileSize, GamePanel.tileSize);
+//
+//     //       walkingRight1 = ImageIO.read(getClass().getResourceAsStream("/player/duck_walking_right_1.png"));
+//            walkingRight1 = uTool.scaleImage(walkingRight1, GamePanel.tileSize, GamePanel.tileSize);
+//
+//    //        walkingRight2 = ImageIO.read(getClass().getResourceAsStream("/player/duck_walking_right_2.png"));
+//            walkingRight2 = uTool.scaleImage(walkingRight2, GamePanel.tileSize, GamePanel.tileSize);
+//
+//     //       walkingLeft1 = ImageIO.read(getClass().getResourceAsStream("/player/duck_walking_left_1.png"));
+//            walkingLeft1 = uTool.scaleImage(walkingLeft1, GamePanel.tileSize, GamePanel.tileSize);
+//
+//    //        walkingLeft2 = ImageIO.read(getClass().getResourceAsStream("/player/duck_walking_left_2.png"));
+//            walkingLeft2 = uTool.scaleImage(walkingLeft2, GamePanel.tileSize, GamePanel.tileSize);
+//
+//     //       swimmingUp1 = ImageIO.read(getClass().getResourceAsStream("/player/duck_swimming_up_1.png"));
+//            int type = swimmingUp1.getType();
+//            System.out.println(type);
+//            swimmingUp1 = uTool.scaleImage(swimmingUp1, GamePanel.tileSize, GamePanel.tileSize);
+//
+//
+//    //        swimmingUp2 = ImageIO.read(getClass().getResourceAsStream("/player/duck_swimming_up_2.png"));
+//            swimmingUp2 = uTool.scaleImage(swimmingUp2, GamePanel.tileSize, GamePanel.tileSize);
+//
+//    //        swimmingDown1 = ImageIO.read(getClass().getResourceAsStream("/player/duck_swimming_down_1.png"));
+//            swimmingDown1 = uTool.scaleImage(swimmingDown1, GamePanel.tileSize, GamePanel.tileSize);
+//
+//    //        swimmingDown2 = ImageIO.read(getClass().getResourceAsStream("/player/duck_swimming_down_2.png"));
+//            swimmingDown2 = uTool.scaleImage(swimmingDown2, GamePanel.tileSize, GamePanel.tileSize);
+//
+//     //       swimmingRight1 = ImageIO.read(getClass().getResourceAsStream("/player/duck_swimming_right_1.png"));
+//            swimmingRight1 = uTool.scaleImage(swimmingRight1, GamePanel.tileSize, GamePanel.tileSize);
+//
+//          //  swimmingRight2 = ImageIO.read(getClass().getResourceAsStream("/player/duck_swimming_right_2.png"));
+//            swimmingRight2 = uTool.scaleImage(swimmingRight2, GamePanel.tileSize, GamePanel.tileSize);
+//
+//        //    swimmingLeft1 = ImageIO.read(getClass().getResourceAsStream("/player/duck_swimming_left_1.png"));
+//            swimmingLeft1 = uTool.scaleImage(swimmingLeft1, GamePanel.tileSize, GamePanel.tileSize);
+//
+//     //       swimmingLeft2 = ImageIO.read(getClass().getResourceAsStream("/player/duck_swimming_left_2.png"));
+//            swimmingLeft2 = uTool.scaleImage(swimmingLeft2, GamePanel.tileSize, GamePanel.tileSize);
+//
+//      //      walkingUpStationary = ImageIO.read(getClass().getResourceAsStream("/player/duck_stationary_up.png"));
+//            walkingUpStationary = uTool.scaleImage(walkingUpStationary, GamePanel.tileSize, GamePanel.tileSize);
+//
+////            walkingDownStationary = ImageIO.read(getClass().getResourceAsStream("/player/duck_stationary_down.png"));
+//            walkingDownStationary = uTool.scaleImage(walkingDownStationary, GamePanel.tileSize, GamePanel.tileSize);
 
-        } catch (IOException e){
-            e.printStackTrace();
-            System.exit(1);
+//        } catch (IOException e){
+//            e.printStackTrace();
+//            System.out.println("Error loading player sprites:");
+//            System.exit(1);
         }
+
+    public BufferedImage setup(String imagePath) {
+        UtilityTool uTool = new UtilityTool();
+        BufferedImage image = null;
+
+        try {
+            image = ImageIO.read(getClass().getResourceAsStream("/player/duck_"+imagePath+ ".png"));
+            int type = image.getType();
+            System.out.println("Image Path:"+imagePath);
+            System.out.println(type);
+            image = uTool.scaleImage(image, GamePanel.tileSize, GamePanel.tileSize);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return image;
     }
     public void update() {
         if (keyH.upPressed || keyH.downPressed || keyH.rightPressed || keyH.leftPressed) {
@@ -104,13 +177,13 @@ public class Player extends Entity {
            if (keyH.upPressed) {
                 direction = "up";
             }
-            else if (keyH.downPressed) {
+            if (keyH.downPressed) {
                 direction = "down";
             }
-            else if (keyH.leftPressed) {
+            if (keyH.leftPressed) {
                 direction = "left";
             }
-            else if (keyH.rightPressed) {
+            if (keyH.rightPressed) {
                 direction = "right";
             }
             spriteCounter++;
@@ -133,20 +206,18 @@ public class Player extends Entity {
             pickUpObject(objIndex);
 
             if (collisionOn) {
-                // can't walk thru walls!
+                // can't walk through walls!
             } else {
-                if (isSwimming) {
+                if (isSwimming) {  //swimming
                     speed = swimmingSpeed;
-                } else if (!powerUp){ // walking with no powerUp
+                } else { // walking
                     speed = walkingSpeed;
-                } else { // walking with powerUp
-                    speed = powerUpWalkingSpeed;
                 }
                 switch (direction) {
-                    case "up": worldY -= speed; break;
-                    case "down": worldY += speed; break;
-                    case "left": worldX -= speed; break;
-                    case "right": worldX += speed; break;
+                    case "up" -> worldY -= speed;
+                    case "down" -> worldY += speed;
+                    case "left" -> worldX -= speed;
+                    case "right" -> worldX += speed;
                 }
             }
         } else {
@@ -156,27 +227,13 @@ public class Player extends Entity {
     public void pickUpObject(int i) {
         if (i != 999) {
             String objName = gp.obj[i].name;
-            switch (objName) { // if we pick up a key remember that we have a key for later
-                case "Key":
-                    keysInInventory++;
-                    Sound.COIN.play();
-                    break;
-                case "Door": // if we interact with a door it will open only when we have a key
-                    if(keysInInventory > 0) {
-                        keysInInventory--;
-                        Sound.UNLOCK.play();
-                    }
-                    break;
-                case "Boots": // if we pick up these boots our speed on land will increase
-                    powerUp = true;
-                    Sound.POWERUP.play();
-                    break;
+            switch (objName) {
                 case "Chest": // opening the chest means you beat the level.
                     Sound.FANFARE.play();
-                    gameFinished = true;
+                    gp.obj[i] = null;
                     break;
             }
-            gp.obj[i] = null;
+
         }
     }
     public void draw(Graphics2D g2) {
@@ -253,7 +310,7 @@ public class Player extends Entity {
                     break;
             }
         }
-        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, screenX, screenY, null);
         //g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
     }
 }
