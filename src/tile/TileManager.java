@@ -1,7 +1,6 @@
 package tile;
 
 import main.GamePanel;
-import main.UtilityTool;
 
 import java.awt.*;
 import java.io.BufferedReader;
@@ -12,7 +11,6 @@ import java.io.InputStreamReader;
 public class TileManager {
     GamePanel gp;
     public Tile[][] tile;
-    UtilityTool uTool = new UtilityTool();
 
 
     public TileManager(GamePanel gp) {

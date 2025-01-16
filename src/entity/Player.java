@@ -69,69 +69,6 @@ public class Player extends Entity {
         walkingUpStationary = setup("stationary_up");
         walkingDownStationary= setup("stationary_down");
 
-//        try {
-//
-//     //       walkingUp1 = ImageIO.read(getClass().getResourceAsStream("/player/duck_walking_up_1.png"));
-//            walkingUp1 = uTool.scaleImage(walkingUp1, GamePanel.tileSize, GamePanel.tileSize);
-//
-//     //       walkingUp2 = ImageIO.read(getClass().getResourceAsStream("/player/duck_walking_up_2.png"));
-//            walkingUp2 = uTool.scaleImage(walkingUp2, GamePanel.tileSize, GamePanel.tileSize);
-//
-//     //       walkingDown1 = ImageIO.read(getClass().getResourceAsStream("/player/duck_walking_down_1.png"));
-//            walkingDown1 = uTool.scaleImage(walkingDown1, GamePanel.tileSize, GamePanel.tileSize);
-//
-//    //        walkingDown2 = ImageIO.read(getClass().getResourceAsStream("/player/duck_walking_down_2.png"));
-//            walkingDown2 = uTool.scaleImage(walkingDown2, GamePanel.tileSize, GamePanel.tileSize);
-//
-//     //       walkingRight1 = ImageIO.read(getClass().getResourceAsStream("/player/duck_walking_right_1.png"));
-//            walkingRight1 = uTool.scaleImage(walkingRight1, GamePanel.tileSize, GamePanel.tileSize);
-//
-//    //        walkingRight2 = ImageIO.read(getClass().getResourceAsStream("/player/duck_walking_right_2.png"));
-//            walkingRight2 = uTool.scaleImage(walkingRight2, GamePanel.tileSize, GamePanel.tileSize);
-//
-//     //       walkingLeft1 = ImageIO.read(getClass().getResourceAsStream("/player/duck_walking_left_1.png"));
-//            walkingLeft1 = uTool.scaleImage(walkingLeft1, GamePanel.tileSize, GamePanel.tileSize);
-//
-//    //        walkingLeft2 = ImageIO.read(getClass().getResourceAsStream("/player/duck_walking_left_2.png"));
-//            walkingLeft2 = uTool.scaleImage(walkingLeft2, GamePanel.tileSize, GamePanel.tileSize);
-//
-//     //       swimmingUp1 = ImageIO.read(getClass().getResourceAsStream("/player/duck_swimming_up_1.png"));
-//            int type = swimmingUp1.getType();
-//            System.out.println(type);
-//            swimmingUp1 = uTool.scaleImage(swimmingUp1, GamePanel.tileSize, GamePanel.tileSize);
-//
-//
-//    //        swimmingUp2 = ImageIO.read(getClass().getResourceAsStream("/player/duck_swimming_up_2.png"));
-//            swimmingUp2 = uTool.scaleImage(swimmingUp2, GamePanel.tileSize, GamePanel.tileSize);
-//
-//    //        swimmingDown1 = ImageIO.read(getClass().getResourceAsStream("/player/duck_swimming_down_1.png"));
-//            swimmingDown1 = uTool.scaleImage(swimmingDown1, GamePanel.tileSize, GamePanel.tileSize);
-//
-//    //        swimmingDown2 = ImageIO.read(getClass().getResourceAsStream("/player/duck_swimming_down_2.png"));
-//            swimmingDown2 = uTool.scaleImage(swimmingDown2, GamePanel.tileSize, GamePanel.tileSize);
-//
-//     //       swimmingRight1 = ImageIO.read(getClass().getResourceAsStream("/player/duck_swimming_right_1.png"));
-//            swimmingRight1 = uTool.scaleImage(swimmingRight1, GamePanel.tileSize, GamePanel.tileSize);
-//
-//          //  swimmingRight2 = ImageIO.read(getClass().getResourceAsStream("/player/duck_swimming_right_2.png"));
-//            swimmingRight2 = uTool.scaleImage(swimmingRight2, GamePanel.tileSize, GamePanel.tileSize);
-//
-//        //    swimmingLeft1 = ImageIO.read(getClass().getResourceAsStream("/player/duck_swimming_left_1.png"));
-//            swimmingLeft1 = uTool.scaleImage(swimmingLeft1, GamePanel.tileSize, GamePanel.tileSize);
-//
-//     //       swimmingLeft2 = ImageIO.read(getClass().getResourceAsStream("/player/duck_swimming_left_2.png"));
-//            swimmingLeft2 = uTool.scaleImage(swimmingLeft2, GamePanel.tileSize, GamePanel.tileSize);
-//
-//      //      walkingUpStationary = ImageIO.read(getClass().getResourceAsStream("/player/duck_stationary_up.png"));
-//            walkingUpStationary = uTool.scaleImage(walkingUpStationary, GamePanel.tileSize, GamePanel.tileSize);
-//
-////            walkingDownStationary = ImageIO.read(getClass().getResourceAsStream("/player/duck_stationary_down.png"));
-//            walkingDownStationary = uTool.scaleImage(walkingDownStationary, GamePanel.tileSize, GamePanel.tileSize);
-
-//        } catch (IOException e){
-//            e.printStackTrace();
-//            System.out.println("Error loading player sprites:");
-//            System.exit(1);
         }
 
     public BufferedImage setup(String imagePath) {
@@ -153,28 +90,8 @@ public class Player extends Entity {
     public void update() {
         if (keyH.upPressed || keyH.downPressed || keyH.rightPressed || keyH.leftPressed) {
             isStationary = false;
-            /* if (keyH.rightPressed && keyH.upPressed) {
-                direction = "right";
-                worldX += speed - 1;
-                worldY -= speed - 1;
-            }
-            else if (keyH.leftPressed && keyH.upPressed) {
-                direction = "left";
-                worldX -= speed - 1;
-                worldY -= speed - 1;
-            }
-            else if (keyH.rightPressed && keyH.downPressed) {
-                direction = "right";
-                worldX += speed - 1;
-                worldY += speed - 1;
-            }
-            else if (keyH.leftPressed && keyH.downPressed) {
-                direction = "left";
-                worldX -= speed - 1;
-                worldY += speed - 1;
-            } */
 
-           if (keyH.upPressed) {
+            if (keyH.upPressed) {
                 direction = "up";
             }
             if (keyH.downPressed) {
@@ -199,8 +116,8 @@ public class Player extends Entity {
             // Collision checker
             collisionOn = false;
 
-            //checks if the tile you want to move into is passable or swimmable etc...
-            gp.collisionChecker.checkTile(this); //checks if the tile you want to move into is passable or swimmable etc...
+            //checks if the tile you want to move into is passable or water etc...
+            gp.collisionChecker.checkTile(this); //checks if the tile you want to move into is passable or water etc...
             //checks if the tile you want to move into is occupied by an object
             int objIndex = gp.collisionChecker.checkObject(this, true);
             pickUpObject(objIndex);

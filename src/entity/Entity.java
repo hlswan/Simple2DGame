@@ -23,6 +23,7 @@ public class Entity {
     public boolean collisionOn = false;
     public boolean isSwimming = false;
     public int solidAreaDefaultX, solidAreaDefaultY;
+    public boolean interactable;
 
     public Entity(GamePanel gp) {
         this.gp = gp;

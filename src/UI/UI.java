@@ -43,6 +43,7 @@ public class UI {
             drawPauseScreen();
         }
 
+
 //        drawIcons(g2);
     }
 
@@ -52,7 +53,10 @@ public class UI {
         int x = uTool.getXToCenterText(text, g2);
         int y = GamePanel.screenHeight/2;
         g2.drawString(text, x, y);
+
     }
+
+
 
 //    private void drawIcons(Graphics2D g2) {
 //

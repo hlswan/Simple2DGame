@@ -10,6 +10,7 @@ public class DuckNPC extends Entity {
         super(gp);
         direction = "down";
         speed = 2;
+        interactable = true;
         getImage();
     }
     public void setAction() {

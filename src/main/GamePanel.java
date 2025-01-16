@@ -1,6 +1,7 @@
 package main;
 
 import UI.UI;
+import dialogue.DialogueHandler;
 import entity.Entity;
 import entity.Player;
 import object.SuperObject;
@@ -32,7 +33,9 @@ public class GamePanel extends JPanel implements Runnable {
     public Thread gameThread;
     //collision
     public CollisionChecker collisionChecker = new CollisionChecker(this);
+    //ui
     public UI ui = new UI(this);
+    public DialogueHandler dh = new DialogueHandler(this);
     //player
     public Player player = new Player(this,keyH);
     //items on the ground
@@ -46,6 +49,8 @@ public class GamePanel extends JPanel implements Runnable {
     public int gameState;
     public final int playState = 1;
     public final int pausedState = 2;
+    public final int dialogueState = 3;
+
 
 
 
@@ -59,7 +64,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void setupGame() {
         aSetter.setObject();
         aSetter.setNPC();
-        playMusic(); //play "Blue Boy Adventure"
+        //playMusic(); //play "Blue Boy Adventure"
         gameState = playState;
     }
     public void startGameThread() {
@@ -97,6 +102,9 @@ public class GamePanel extends JPanel implements Runnable {
         if (gameState == pausedState) {
 
         }
+        if (gameState == dialogueState) {
+
+        }
 
     }
     public void paintComponent(Graphics g) {
@@ -121,6 +129,8 @@ public class GamePanel extends JPanel implements Runnable {
         }
         player.draw(g2);
         ui.draw(g2);
+        dh.draw(g2);
+
         //debug
         if(keyH.debugCheckDrawTime) {
             long drawEnd = System.nanoTime();
