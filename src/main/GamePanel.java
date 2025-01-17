@@ -1,7 +1,7 @@
 package main;
 
 import UI.UI;
-import dialogue.DialogueHandler;
+import UI.dialogue.DialogueHandler;
 import entity.Entity;
 import entity.Player;
 import object.SuperObject;
@@ -46,7 +46,7 @@ public class GamePanel extends JPanel implements Runnable {
     // frames per second
     final double FPS = 60;
 
-    public int gameState;
+    public static int gameState;
     public final int playState = 1;
     public final int pausedState = 2;
     public final int dialogueState = 3;

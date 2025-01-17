@@ -1,4 +1,4 @@
-package dialogue;
+package UI.dialogue;
 
 import UI.UI;
 import main.GamePanel;

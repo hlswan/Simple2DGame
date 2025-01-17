@@ -7,10 +7,13 @@ import javax.imageio.ImageIO;
 import java.io.IOException;
 
 public class DuckObject extends SuperObject {
-
+    public static int tileLocationX = GamePanel.tileSize * 12;
+    public static int tileLocationY = GamePanel.tileSize * 12;
     public DuckObject(GamePanel gp) {
         imageWidth = GamePanel.tileSize;
         imageHeight = GamePanel.tileSize;
+
+
         name = "DuckNPC";
         try {
             image = ImageIO.read(getClass().getResourceAsStream("/objects/duckNPCCollisionBox.png"));

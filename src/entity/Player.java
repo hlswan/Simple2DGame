@@ -20,6 +20,8 @@ public class Player extends Entity {
     public final int screenY;
     private final int walkingSpeed = 3;
     private final int swimmingSpeed = 4;
+    public boolean interacting = false;
+    private final double interactTimer = 3;
 
 
 
@@ -88,6 +90,12 @@ public class Player extends Entity {
         return image;
     }
     public void update() {
+        if (keyH.interactPressed) {
+            interacting = true;
+            System.out.println("Pressing the Interact Key");
+            int objI = gp.collisionChecker.checkObject(this, true);
+            interact(objI);
+        }
         if (keyH.upPressed || keyH.downPressed || keyH.rightPressed || keyH.leftPressed) {
             isStationary = false;
 
@@ -122,6 +130,7 @@ public class Player extends Entity {
             int objIndex = gp.collisionChecker.checkObject(this, true);
             pickUpObject(objIndex);
 
+
             if (collisionOn) {
                 // can't walk through walls!
             } else {
@@ -139,6 +148,7 @@ public class Player extends Entity {
             }
         } else {
             isStationary = true;
+            interacting = false;
         }
     }
     public void pickUpObject(int i) {
@@ -148,6 +158,21 @@ public class Player extends Entity {
                 case "Chest": // opening the chest means you beat the level.
                     Sound.FANFARE.play();
                     gp.obj[i] = null;
+                    break;
+            }
+
+        }
+    }
+    public void interact(int i) {
+
+        if (i != 999) {
+            System.out.println("Interact is Running");
+            String objName = gp.obj[i].name;
+            switch (objName) {
+                case "duckNPC": // opening the chest means you beat the level.
+                    Sound.FANFARE.play();
+                    GamePanel.gameState = 3;
+                    System.out.println("Game State is dialogue");// dialogue state
                     break;
             }
 
