@@ -24,6 +24,7 @@ public class DialogueHandler extends UI {
         g2.setColor(Color.white);
 
         if (gp.gameState == gp.dialogueState) {
+            System.out.println("Drawing Dialogue");
             drawDialogue();
         }
     }

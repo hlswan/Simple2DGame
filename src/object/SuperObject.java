@@ -15,6 +15,14 @@ public class SuperObject {
     public int solidAreaDefaultX = 0;
     public int solidAreaDefaultY = 0;
     public int imageWidth, imageHeight;
+    public int objectType;
+    private final int dialogueObject = 1;
+    private final int itemObject = 2;
+
+    public SuperObject(int objectType) {
+        this.objectType = objectType;
+    }
+
 
 
     public void draw(Graphics2D g2, GamePanel gp) {

@@ -148,4 +148,8 @@ public class GamePanel extends JPanel implements Runnable {
     public void stopMusic() {
         Sound.BLUE_BOY_ADVENTURE.stop();
     }
+
+    public void setGameState(int state) {
+        gameState = state;
+    }
 }

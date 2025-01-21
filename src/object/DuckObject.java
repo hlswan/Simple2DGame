@@ -9,7 +9,10 @@ import java.io.IOException;
 public class DuckObject extends SuperObject {
     public static int tileLocationX = GamePanel.tileSize * 12;
     public static int tileLocationY = GamePanel.tileSize * 12;
+
+
     public DuckObject(GamePanel gp) {
+        super(1);
         imageWidth = GamePanel.tileSize;
         imageHeight = GamePanel.tileSize;
 

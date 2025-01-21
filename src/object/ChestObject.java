@@ -8,7 +8,9 @@ import java.io.IOException;
 
 public class ChestObject extends SuperObject {
 //    UtilityTool uTool = new UtilityTool();
+
     public ChestObject(GamePanel gp) {
+        super(2);
         imageWidth = GamePanel.tileSize;
         imageHeight = GamePanel.tileSize;
         name = "Chest";

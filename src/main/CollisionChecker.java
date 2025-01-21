@@ -5,6 +5,8 @@ import tile.Tile;
 
 public class CollisionChecker {
     GamePanel gp;
+    private final int dialogueObject = 1;
+    private final int itemObject = 2;
 
     public CollisionChecker(GamePanel gp) {
         this.gp = gp;
@@ -77,6 +79,9 @@ public class CollisionChecker {
                 if(entity.solidArea.intersects(gp.obj[i].solidArea)) { //does the players hitbox intersect with the objects hitbox?
                     if (!gp.obj[i].isPassable) { //if the hitboxes do intersect, then is the object passable?
                         entity.collisionOn = true; // if it's not passable then turn on collision, which stops movement
+                    } else if (gp.obj[i].objectType == dialogueObject) {
+                        System.out.println("something");
+                        gp.setGameState(gp.dialogueState);
                     }
                     if (player) {
                         index = i;
